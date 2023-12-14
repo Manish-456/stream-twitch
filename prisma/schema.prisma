@@ -27,7 +27,7 @@ model Follow {
   followingId String @db.ObjectId
 
   follower   User @relation(name: "following", fields: [followerId], references: [id], onDelete: Cascade)
-  followedBy User @relation(name: "followedBy", fields: [followingId], references: [id], onDelete: Cascade)
+  following User @relation(name: "followedBy", fields: [followingId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
