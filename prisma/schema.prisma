@@ -9,12 +9,28 @@ datasource db {
 }
 
 model User {
-  id             String  @id @default(auto()) @map("_id") @db.ObjectId
-  username       String  @unique
-  imageUrl       String  @db.String
-  externalUserId String  @unique
-  bio            String? @db.String
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  username       String   @unique
+  imageUrl       String   @db.String
+  externalUserId String   @unique
+  bio            String?  @db.String
+  following      Follow[] @relation("following")
+  followedBy     Follow[] @relation("followedBy")
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Follow {
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  followerId  String @db.ObjectId
+  followingId String @db.ObjectId
+
+  follower   User @relation(name: "following", fields: [followerId], references: [id], onDelete: Cascade)
+  followedBy User @relation(name: "followedBy", fields: [followingId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([followerId, followingId])
 }
