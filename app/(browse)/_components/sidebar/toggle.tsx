@@ -2,41 +2,49 @@
 
 import { Hint } from "@/components/hint";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useSidebar } from "@/store/use-sidebar";
 import { ArrowLeftFromLine, ArrowRightFromLine } from "lucide-react";
 
 export function Toggle() {
-  const { collapsed, onCollapse, onExpand } = useSidebar(state => state);
+  const { collapsed, onCollapse, onExpand } = useSidebar((state) => state);
 
   const label = collapsed ? "Expand" : "Collapse";
 
-  return <>
-   {
-    !collapsed && (
+  return (
+    <>
+      {!collapsed && (
         <div className="p-3 justify-between pl-6 mb-2  flex items-center w-full">
-            <p className="text-primary font-semibold">
-                For you
-            </p>
-            <Hint label={label} asChild side="right">
-            <Button onClick={onCollapse} variant={"ghost"} className="h-auto p-2 ml-auto">
-                <ArrowLeftFromLine className="h-4 w-4"  />
-                </Button>
-            </Hint>
-        </div>
-    )
-}
-{
-    collapsed && (
-        <div className="hidden lg:flex w-full items-center justify-center pt-4 mb-4">
-           <Hint label={label}>
-
-            <Button variant={"ghost"} onClick={onExpand} className="h-auto p-2">
-            <ArrowRightFromLine className="h-4 w-4" />
-
+          <p className="text-primary font-semibold">For you</p>
+          <Hint label={label} asChild side="right">
+            <Button
+              onClick={onCollapse}
+              variant={"ghost"}
+              className="h-auto p-2 ml-auto"
+            >
+              <ArrowLeftFromLine className="h-4 w-4" />
             </Button>
-           </Hint>
+          </Hint>
         </div>
-    )
+      )}
+      {collapsed && (
+        <div className="hidden lg:flex w-full items-center justify-center pt-4 mb-4">
+          <Hint label={label}>
+            <Button variant={"ghost"} onClick={onExpand} className="h-auto p-2">
+              <ArrowRightFromLine className="h-4 w-4" />
+            </Button>
+          </Hint>
+        </div>
+      )}
+    </>
+  );
 }
-  </>;
-}
+
+export const ToggleSkeleton = () => {
+  return (
+    <div className="p-3 justify-between pl-6 mb-2 lg:flex hidden items-center w-full">
+        <Skeleton className="h-6 w-[100px]" />
+        <Skeleton className="h-6 w-6" />
+    </div>
+  );
+};
