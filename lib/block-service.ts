@@ -55,6 +55,8 @@ export async function blockUser(id : string){
         }
     });
 
+    console.log(`ExistingBlock`, existingBlock);
+
     if(existingBlock) throw new Error("Already blocked");
 
     const block = await db.block.create({
