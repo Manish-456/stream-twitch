@@ -46,6 +46,5 @@ export const getRecommendedUsers = async () => {
       
     });
   }
-  console.log(users);
   return users;
 };
