@@ -14,6 +14,7 @@ export function ChatMessage({data}: ChatMessageProps) {
   return (
     <div className='flex gap-2 p-2 rounded-md hover:bg-white/5'>
         <p className='text-sm text-white/40'>
+            {/* @ts-ignore */}
             {format(data.timestamp, "HH:MM")}
         </p>
 
