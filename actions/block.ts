@@ -2,10 +2,9 @@
 
 import { revalidatePath } from "next/cache";
 import { blockUser, unBlockUser } from "@/lib/block-service";
+import { getSelf } from "@/lib/auth-service";
 
 export async function onBlock(id : string){
-    // TODO : Adapt to disconnect from livestream
-    // TODO : Allow ability to kick the guest
         
         const blockedUser = await blockUser(id);
         
@@ -21,13 +20,11 @@ export async function onBlock(id : string){
 }
 
 export async function onUnblock(id : string){
+    const self = await getSelf();
+
     const unblockedUser = await unBlockUser(id);
 
-    revalidatePath("/")
-
-    if(unblockedUser){
-        revalidatePath(`/${unblockedUser.blocked.username}`)
-    }
+    revalidatePath(`/u/${self.username}/community`)
 
     return unblockedUser;
 
