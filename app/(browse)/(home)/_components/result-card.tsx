@@ -32,6 +32,7 @@ export function ResultCard({ data }: ResultCardProps) {
             username={data.user.username}
             isLive={data.isLive}
             imageUrl={data.user.imageUrl}
+            showBadge
           />
           <div className="flex flex-col text-sm overflow-hidden">
             <p className="truncate font-semibold hover:text-blue-500 ">
